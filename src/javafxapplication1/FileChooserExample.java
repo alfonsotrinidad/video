@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 
 public class FileChooserExample extends Application {
@@ -125,8 +126,11 @@ public class FileChooserExample extends Application {
                    p.setProperty("v2", textField2.getText());
                    p.setProperty("v3", textField3.getText());
                    p.setProperty("v4", textField2.getText());
+                   this.properties = p;
                    Date date = new Date();
                    p.store(output, "Archivo .ini guardado" + date.toString() );
+                   
+                  
                //
                
            } catch (FileNotFoundException ex) {
@@ -135,6 +139,27 @@ public class FileChooserExample extends Application {
            } catch (IOException ex) {
                Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
            }
+           //JOptionPane.showMessageDialog(null, properties.getProperty("v1"));
+           JavaFXApplication1 ja1 = new JavaFXApplication1();
+           ja1.setPath1(properties.getProperty("v1"));
+           ja1.setPath2(properties.getProperty("v2"));
+           ja1.setPath3(properties.getProperty("v3"));
+           ja1.setPath4(properties.getProperty("v4"));
+           ja1.start(new Stage());
+           
+           Ventana v;
+            try {
+                v = new Ventana();
+                  v.start(new Stage());
+            } catch (IOException ex) {
+                Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         
+           
+           
+           
         });
 
        
