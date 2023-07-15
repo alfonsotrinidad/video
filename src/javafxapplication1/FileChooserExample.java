@@ -12,6 +12,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -37,18 +38,18 @@ public class FileChooserExample extends Application {
     public void init() throws IOException{
            try {
             input = new FileInputStream("archivo.ini");
+            if (input.available()>0 ){
             this.properties.load(input);
-                    
-                   v1 =   this.properties.getProperty("v1");
-                   v2 =  this.properties.getProperty("v2"); 
-                    v3 = this.properties.getProperty("v3");
-                    v4= this.properties.getProperty("v4");
+            v1 =   this.properties.getProperty("v1");
+            v2 =  this.properties.getProperty("v2"); 
+            v3 = this.properties.getProperty("v3");
+            v4= this.properties.getProperty("v4");
                     System.out.println("Valores actuales");
                     System.out.println(properties.getProperty("v1"));
                     System.out.println(properties.getProperty("v2"));
                     System.out.println(properties.getProperty("v3"));
                     System.out.println(properties.getProperty("v4"));
-                 
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,7 +104,7 @@ public class FileChooserExample extends Application {
         // Crear una escena y mostrarla.
         Scene scene = new Scene(vbox);
         stage.setScene(scene);
-        stage.show();
+      
 
         
        btnsave.setOnAction((ActionEvent e) -> {
@@ -129,7 +130,7 @@ public class FileChooserExample extends Application {
                    this.properties = p;
                    Date date = new Date();
                    p.store(output, "Archivo .ini guardado" + date.toString() );
-                   
+                   JOptionPane.showMessageDialog(null, "Datos guardados \n Vuelva abrir la aplicacion.");
                   
                //
                
@@ -145,22 +146,19 @@ public class FileChooserExample extends Application {
            ja1.setPath2(properties.getProperty("v2"));
            ja1.setPath3(properties.getProperty("v3"));
            ja1.setPath4(properties.getProperty("v4"));
-           ja1.start(new Stage());
+           Platform.exit();
+         //  ja1.start(new Stage());
            
-           Ventana v;
-            try {
-                v = new Ventana();
-                  v.start(new Stage());
-            } catch (IOException ex) {
-                Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         
-           
-           
-           
-        });
+//           Ventana v;
+//            try {
+//                v = new Ventana();
+//                 v.start(new Stage());
+          //  } catch (IOException ex) {
+           //     Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
+       //     } catch (Exception ex) {
+          //      Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
+          //  }
+          });
 
        
 // Agregar funcionalidad a los botones para que muestren el FileChooser y actualicen el TextField con la ruta seleccionada.
@@ -202,10 +200,21 @@ public class FileChooserExample extends Application {
             File file = fileChooser4.showOpenDialog(stage);
             if (file != null) {
                 textField4.setText(file.getAbsolutePath());
+                
                 btnsave.setDisable(false);
 
             }
         });
+          stage.showAndWait();
+           Ventana v;
+            try {
+                v = new Ventana();
+                 v.start(new Stage());
+            } catch (IOException ex) {
+                Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(FileChooserExample.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     public static void main(String[] args) {
