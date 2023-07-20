@@ -7,6 +7,7 @@ package javafxapplication1;
 
 import java.io.File;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,6 +41,7 @@ public class JavaFXApplication1 extends Application {
     public JavaFXApplication1() {
         media = new Media(new File("D:\\goku.mp4").toURI().toString());
         mediaPlayer = new MediaPlayer(media) ;
+         
     }
      
      
@@ -61,11 +63,9 @@ public class JavaFXApplication1 extends Application {
     }
     
     
-    @Override
-    public void stop(){
-  //    mediaPlayer.stop();
-    
-    }
+   public  void stop(){
+     mediaPlayer.stop();
+   }
     
     @Override
     public void start(Stage primaryStage) {
@@ -93,7 +93,7 @@ public class JavaFXApplication1 extends Application {
           
          
          MediaView mediaView = new MediaView(mediaPlayer);  
-         mediaPlayer.setAutoPlay(false);  
+         mediaPlayer.setAutoPlay(true);  
          
         StackPane root = new StackPane();
        
@@ -119,6 +119,7 @@ public class JavaFXApplication1 extends Application {
         
         st1.setTitle(media.getSource().toString());
         st1.setScene(scene);
+        st1.setAlwaysOnTop(true);
         st1.setFullScreen(true);
         st1.show();
         

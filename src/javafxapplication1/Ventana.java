@@ -78,30 +78,56 @@ public class Ventana extends Application{
      }
     
     
+  
+    
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
-        int butonwidth = 400;
+        String estilo = "-fx-background-color: #ff9633";
+        int butonwidth = 200;
         int buttonheight = (int)(Screen.getPrimary().getBounds().getMaxY() / 3)-5;
-        Button btn1 = new Button("Video 1" );
+        Button btn1 = new Button();
         btn1.setPrefSize(butonwidth,buttonheight);
-        Button btn2 = new Button("Video 2");
+        Button btn2 = new Button();
         btn2.setPrefSize(butonwidth,buttonheight);
-        Button btn3 = new Button("Video 3");
+        Button btn3 = new Button();
         btn3.setPrefSize(butonwidth,buttonheight);
         
+       javafx.scene.image.Image image1 = new javafx.scene.image.Image(new FileInputStream("assets/ima1.jpg"));  
+    
+       ImageView imageView1 = new ImageView(image1);
+       imageView1.setFitHeight(buttonheight);
+       imageView1.setFitWidth(butonwidth);
+       btn1.setStyle(estilo);
+       btn1.setGraphic(imageView1);
+       
+       
+       javafx.scene.image.Image image2 = new javafx.scene.image.Image(new FileInputStream("assets/ima2.jpg"));  
+       ImageView imageView2 = new ImageView(image2);
+       imageView2.setFitHeight(buttonheight);
+       imageView2.setFitWidth(butonwidth);
+       btn2.setStyle(estilo);
+       btn2.setGraphic(imageView2);
         
-        
-        
+       
+       javafx.scene.image.Image image3 = new javafx.scene.image.Image(new FileInputStream("assets/ima3.jpg"));  
+       ImageView imageView3 = new ImageView(image3);
+       imageView3.setFitHeight(buttonheight);
+       imageView3.setFitWidth(butonwidth);
+       btn3.setStyle(estilo);
+       btn3.setGraphic(imageView3);
       
-       VBox vbox = new VBox(btn1,btn2,btn3 );
+       VBox vbox = new VBox(btn1,btn2,btn3,imageView1,imageView2,imageView3 );
        vbox.setAlignment(Pos.CENTER);
        // vbox.getChildren().addAll(btn1);
-      
+        vbox.setStyle(estilo);
         Scene scene = new Scene(vbox,Screen.getPrimary().getBounds().getMaxX() ,Screen.getPrimary().getBounds().getMaxY());
-        primaryStage.setX(1);
-        primaryStage.setY(1);
+        primaryStage.setX(0);
+        primaryStage.setY(0);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Video");
+        primaryStage.setTitle("Dove");
+        primaryStage.setAlwaysOnTop(true);
+        
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.show();
@@ -116,7 +142,8 @@ public class Ventana extends Application{
                     ja1.st1.close();
                     ja1.mediaPlayer.stop();
                     ja1.media = new Media(new File(v2).toURI().toString());
-                    ja1.mediaPlayer  = new MediaPlayer(ja1.media); 
+                    ja1.mediaPlayer  = new MediaPlayer(ja1.media);
+                 //    ja1.mediaPlayer.setRate(90);
                     ja1.mediaPlayer.setOnEndOfMedia(new Runnable() {
                         @Override
                         public void run() {
